@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: gitlab-registry.nautilus.optiputer.net/$USER/$PROJECT:latest
+        image: gitlab-registry.nautilus.optiputer.net/$USER/$PROJECT/app:latest
         resources:
           limits:
             memory: 384Mi
