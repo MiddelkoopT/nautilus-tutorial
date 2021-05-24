@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: api    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: app
+        image: gitlab-registry.nautilus.optiputer.net/$USER/$PROJECT:latest
+        resources:
+          limits:
+            memory: 384Mi
+            cpu: 200m
+          requests:
+            cpu: 100m
+            memory: 256Mi
+      imagePullSecrets:
+        - name: image-deploy-token

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: zero
+  labels:
+    zero: home-pod
+spec:
+  containers:
+  - name: zero
+    image: debian:10
+    resources:
+      limits:
+        memory: 384Mi
+        cpu: 250m
+      requests:
+        cpu: 200m
+        memory: 256Mi
+    volumeMounts:
+      - mountPath: /home
+        name: home
+    command: [ sleep ]
+    args: [ 2h ]
+  volumes:
+    - name: home
+      persistentVolumeClaim:
+        claimName: zero-home-data
