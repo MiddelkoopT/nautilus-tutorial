@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: zero
+  name: home
   labels:
-    zero: home-pod
+    home: home-pod
 spec:
   containers:
-  - name: zero
+  - name: home
     image: debian:10
     resources:
       limits:
@@ -23,4 +23,4 @@ spec:
   volumes:
     - name: home
       persistentVolumeClaim:
-        claimName: zero-home-data
+        claimName: home-data

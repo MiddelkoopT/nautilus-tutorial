@@ -3,13 +3,13 @@
 . ./environment.sh
 
 # Wait for pod to be in the 'Running' state
-while [ $(kubectl get pod/zero  -o template --template={{.status.phase}}) != "Running" ] ; do
-    echo "Waiting for pod zero: $(date)"
+while [ $(kubectl get pod/home  -o template --template={{.status.phase}}) != "Running" ] ; do
+    echo "Waiting for pod home: $(date)"
     sleep 1
 done
 
-SSH="kubectl exec -i zero -- /bin/bash"
-SSH_USER="kubectl exec -i zero -- /usr/bin/sudo -u $USER -i"
+SSH="kubectl exec -i home -- /bin/bash"
+SSH_USER="kubectl exec -i home -- /usr/bin/sudo -u $USER -i"
 
 $SSH <<EOF
 adduser --disabled-password --gecos $USER $USER
