@@ -25,4 +25,4 @@ spec:
             cpu: 100m
             memory: 256Mi
       imagePullSecrets:
-        - name: image-deploy-token
+        - name: home-deploy-token
