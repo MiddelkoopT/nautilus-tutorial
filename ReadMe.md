@@ -1,7 +1,7 @@
 # Nautilus Tutorial
 *Copyright 2021 Internet2. Code licensed Apache License v2.0. Documentation licensed CC BY-SA 4.0*
 
-Tutorial for Nautilus (https://nautilus.optiputer.net/).  Follow the tutorial to get access
+Tutorial for Nautilus (https://nautilus.optiputer.net/).  Follow the tutorial to get access Nautilus.
 
 Save the Nautilus credentials `config` file to this directory and source the `environment.sh` file to use `kubectl`.
 ```bash
@@ -32,11 +32,12 @@ kubectl create secret docker-registry home-deploy-token --docker-server="$CI_REG
 
 ## Setup and Teardown
 
-Setup and teardown for the "home" container including storage.
+Setup and teardown for the "home" container including storage.  The home pod will terminate after 2 hours.  It can be restarted by re-running `up.sh`.
+
 ```bash
 ./up.sh
-./setup.sh
 kubectl describe pod/home
+./setup.sh
 ./down.sh
 ```
 
@@ -46,14 +47,9 @@ kubectl describe pod/home
 ```
 
 ## Deploy App
-Setup `kubectl` credentials
-
-```bash
-. ./environment.sh
-```
-
 Load sample API deployment and expose the port as a service. Note the environment substitution with envsubst.
 ```bash
+. ./environment.sh
 cat app/app-deployment.yaml | PROJECT=$(basename $PWD) envsubst | kubectl apply -f -
 kubectl apply -f app/app-service.yaml
 kubectl get pod
@@ -84,9 +80,10 @@ kubectl delete service app-service
 kubectl delete deployment app-deployment
 kubectl get pod
 kubectl get service
+kubectl get secret
 ```
 
 Optionally remove deploy token.
 ```
-kubectl delete secret image-deploy-token
+kubectl delete secret home-deploy-token
 ```
