@@ -1,7 +1,7 @@
 # Nautilus Tutorial
 *Copyright 2021 Internet2. Code licensed Apache License v2.0. Documentation licensed CC BY-SA 4.0*
 
-Tutorial for Nautilus (https://nautilus.optiputer.net/).  Follow the tutorial to get access Nautilus.
+Tutorial for Nautilus (https://nautilus.optiputer.net/).  Follow the directions on the Nautilus website to get access Nautilus.
 
 Save the Nautilus credentials `config` file to this directory and source the `environment.sh` file to use `kubectl`.
 ```bash
