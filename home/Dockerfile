@@ -1,13 +1,7 @@
-## Python image
-#FROM python:3
-#LABEL maintainer="tmiddelkoop@internet2.edu"
-
-# Full Debian image
 FROM debian:10
 LABEL maintainer="tmiddelkoop@internet2.edu"
 
-
-## Basic install/update
+## Basic install/update 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils && \
     DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y && \
@@ -22,17 +16,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends em
     DEBIAN_FRONTEND=noninteractive apt-get install -y aspell-en bash-completion rsync && \
     apt-get clean
 
-
-## App dependencies
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get install -y python3-pip && apt-get clean
-RUN pip3 install flask
-
-## App
-WORKDIR /app
-COPY api.py .
-
-## Entry
-ENV PORT 8080
-EXPOSE 8080
-ENTRYPOINT [ "python3", "/app/api.py" ]
+## User
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y sudo python3-pip gfortran automake && \
+    apt-get clean

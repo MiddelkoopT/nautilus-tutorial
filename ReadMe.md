@@ -30,15 +30,43 @@ Save the GitLab `token` as a K8 secret.
 kubectl create secret docker-registry home-deploy-token --docker-server="$CI_REGISTRY" --docker-username="$CI_DEPLOY_USER" --docker-password="$CI_DEPLOY_PASSWORD" 
 ```
 
-## Setup and Teardown
-
-Setup and teardown for the "home" container including storage.  The home pod will terminate after 2 hours.  It can be restarted by re-running `up.sh`.
-
+All use of `kubectl` must have the envrionment set and the `$PWD` must be the project root.
 ```bash
-./up.sh
-kubectl describe pod/home
-./setup.sh
-./down.sh
+. ./environment.sh
+```
+
+## Simple Home Pod
+
+To create a simple home pod without using a CI/CD pipleline. The home pod will terminate after 2 hours and is named the same as the home pod created by `./home.sh`.
+
+Allocate storage and startup the pod:
+```bash
+. ./environment.sh
+kubectl apply -f simple/data.yaml
+kubectl apply -f simple/home.yaml
+```
+
+Alternatively, you an also apply the entire folder
+```
+. ./environment.sh
+kubectl apply -f simple
+```
+
+You can now directy attach to the pod as root via:
+```bash
+kubectl exec -it home -- /bin/bash
+```
+
+To get a user, perform some script magic.  After this `./ssh.sh` will work. 
+```bash
+./scripts/setup-debian.sh
+```
+
+To destroy the pod and delete the storage
+```bash
+. ./environment.sh
+kubectl delete -f simple/home.yaml
+kubectl delete -f simple/data.yaml
 ```
 
 ## Shell
@@ -86,4 +114,17 @@ kubectl get secret
 Optionally remove deploy token.
 ```
 kubectl delete secret home-deploy-token
+```
+
+## Home Container
+
+To build your own home container you must get the CI/CD pipeline working using the `app` pod.
+```bash
+./home.sh
+```
+
+To delete the pod and **delete** the data run the following.  This will **delete** your data and the pod.
+```bash
+./delete.sh
+./list.sh
 ```
