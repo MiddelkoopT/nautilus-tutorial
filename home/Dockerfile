@@ -17,5 +17,5 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends em
     apt-get clean
 
 ## User
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y sudo python3-pip gfortran automake && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y sudo s3fs python3-pip gfortran automake && \
     apt-get clean
