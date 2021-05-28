@@ -34,15 +34,15 @@ spec:
     volumeMounts:
       - name: home
         mountPath: /home
-      - name: data
-        mountPath: /data
+      - name: scratch
+        mountPath: /scratch
     command: [ sleep ]
     args: [ 2h ]
   volumes:
     - name: home
       persistentVolumeClaim:
         claimName: home-data
-    - name: data
+    - name: scratch
       emptyDir: {}
   imagePullSecrets:
     - name: home-deploy-token
