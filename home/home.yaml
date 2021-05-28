@@ -26,17 +26,23 @@ spec:
       limits:
         memory: 384Mi
         cpu: 250m
+        ephemeral-storage: 5Gi
       requests:
         memory: 256Mi
         cpu: 200m
+        ephemeral-storage: 5Gi
     volumeMounts:
-      - mountPath: /home
-        name: home
+      - name: home
+        mountPath: /home
+      - name: data
+        mountPath: /data
     command: [ sleep ]
     args: [ 2h ]
   volumes:
     - name: home
       persistentVolumeClaim:
         claimName: home-data
+    - name: data
+      emptyDir: {}
   imagePullSecrets:
     - name: home-deploy-token
