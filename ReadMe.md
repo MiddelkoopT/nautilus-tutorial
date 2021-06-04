@@ -128,3 +128,37 @@ To delete the pod and **delete** the data run the following.  This will **delete
 ./delete.sh
 ./list.sh
 ```
+
+## S3
+
+Sample FUSE mount (east)
+```bash
+s3fs test1 /data -o passwd_file=.s3fs -o url=https://s3-east.nautilus.optiputer.net -o use_path_request_style
+```
+
+Password file `.s3fs`
+```
+$ACCESS_KEY:$SECRET_KEY
+```
+
+Config file `.s3cfg` for `s3cmd`
+
+East `s3cmd --config=s3cfg-east ls`:
+```
+[default]
+access_key = $ACCESS_KEY
+secret_key = $SECRET_KEY
+host_base = https://s3-east.nautilus.optiputer.net
+host_bucket = https://s3-east.nautilus.optiputer.net
+use_https = True
+```
+
+West `s3cmd --config=s3cfg-west ls`:
+```
+[default]
+access_key = $ACCESS_KEY
+secret_key = $SECRET_KEY
+host_base = https://s3.nautilus.optiputer.net
+host_bucket = https://s3.nautilus.optiputer.net
+use_https = True
+```
