@@ -24,12 +24,12 @@ spec:
     image: gitlab-registry.nautilus.optiputer.net/$USER/$PROJECT/home:latest
     resources:
       limits:
-        memory: 384Mi
-        cpu: 250m
+        memory: 4Gi # 384Mi
+        cpu: 2      # 250m
         ephemeral-storage: 5Gi
       requests:
-        memory: 256Mi
-        cpu: 200m
+        memory: 4Gi  # 256Mi
+        cpu: 2       # 200m
         ephemeral-storage: 5Gi
     volumeMounts:
       - name: home
