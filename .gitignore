@@ -1,3 +1,5 @@
 /config
 /token
+/access*
 /s3cfg*
+.s3fs

@@ -131,6 +131,22 @@ To delete the pod and **delete** the data run the following.  This will **delete
 
 ## S3
 
+Request access keys and store them with their endpoints.
+
+The `access-east` file:
+```bash
+ACCESS_KEY_ID=
+SECRET_ACCESS_KEY=
+ENDPOINT_URL=https://s3-east.nautilus.optiputer.net
+```
+
+The `access-west` file:
+```bash
+ACCESS_KEY_ID=
+SECRET_ACCESS_KEY=
+ENDPOINT_URL=https://s3.nautilus.optiputer.net
+```
+
 Sample FUSE mount (east)
 ```bash
 s3fs test1 /data -o passwd_file=.s3fs -o url=https://s3-east.nautilus.optiputer.net -o use_path_request_style
@@ -138,27 +154,36 @@ s3fs test1 /data -o passwd_file=.s3fs -o url=https://s3-east.nautilus.optiputer.
 
 Password file `.s3fs`
 ```
-$ACCESS_KEY:$SECRET_KEY
+$ACCESS_KEY_ID:$SECRET_ACCESS_KEY
+```
+
+### S3cmd
+
+```cmd
+python3 -m pip install s3cmd
 ```
 
 Config file `.s3cfg` for `s3cmd`
 
-East `s3cmd --config=s3cfg-east ls`:
-```
+For $ZONE in east west ; do
+```bash
+ZONE=east
+. ./access-$ZONE
+cat > s3cfg-$ZONE <<EOF
 [default]
-access_key = $ACCESS_KEY
-secret_key = $SECRET_KEY
-host_base = https://s3-east.nautilus.optiputer.net
-host_bucket = https://s3-east.nautilus.optiputer.net
+access_key = $ACCESS_KEY_ID
+secret_key = $SECRET_ACCESS_KEY
+host_base = $ENDPOINT_URL
+host_bucket = $ENDPOINT_URL
 use_https = True
+EOF
 ```
 
-West `s3cmd --config=s3cfg-west ls`:
+Copy secrets to pod:
 ```
-[default]
-access_key = $ACCESS_KEY
-secret_key = $SECRET_KEY
-host_base = https://s3.nautilus.optiputer.net
-host_bucket = https://s3.nautilus.optiputer.net
-use_https = True
+kubectl cp s3cfg-east home:/home/$USER
+kubectl cp s3cfg-west home:/home/$USER
 ```
+
+East `s3cmd --config=s3cfg-east ls`
+West `s3cmd --config=s3cfg-west ls`
