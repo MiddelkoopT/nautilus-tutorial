@@ -154,7 +154,8 @@ s3fs test1 /data -o passwd_file=.s3fs -o url=https://s3-east.nautilus.optiputer.
 
 Password file `.s3fs`
 ```
-$ACCESS_KEY_ID:$SECRET_ACCESS_KEY
+. ./access-east
+echo "$ACCESS_KEY_ID:$SECRET_ACCESS_KEY" > .s3fs
 ```
 
 ### S3cmd
