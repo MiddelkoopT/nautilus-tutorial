@@ -91,6 +91,14 @@ kubectl port-forward service/app-service 8080:8080
 curl localhost:8080
 ```
 
+Test API - replace URL with actual URL
+```
+URL=http://localhost
+curl ${URL}/
+curl ${URL}/v1/echo/string
+curl -i -H "Content-Type: application/json" -H "Accept: application/json" -X POST --data '{"run": true}' ${URL}/v1/command
+```
+
 Restart service (port-forward needs to be restarted)
 ```bash
 kubectl rollout restart deployment app-deployment
