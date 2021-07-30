@@ -80,8 +80,10 @@ Load sample API deployment and expose the port as a service. Note the environmen
 . ./environment.sh
 cat app/app-deployment.yaml | PROJECT=$(basename $PWD) envsubst | kubectl apply -f -
 kubectl apply -f app/app-service.yaml
+cat app/app-ingress.yaml | PROJECT=$(basename $PWD) envsubst | kubectl apply -f -
 kubectl get pod
 kubectl get service
+kubectl get ingress
 kubectl get deployment
 ```
 
@@ -112,6 +114,7 @@ kubectl exec -it app-deployment-HASH -- /bin/bash
 
 Destroy environment
 ```bash
+kubectl delete ingress app-ingress
 kubectl delete service app-service
 kubectl delete deployment app-deployment
 kubectl get pod
