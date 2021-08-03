@@ -3,3 +3,5 @@
 /access*
 /s3cfg*
 .s3fs
+/.venv/
+.ipynb_checkpoints/
