@@ -21,15 +21,15 @@ metadata:
 spec:
   containers:
   - name: home
-    image: gitlab-registry.nautilus.optiputer.net/$USER/$PROJECT/home:latest
+    image: gitlab-registry.nrp-nautilus.io/$USER/$PROJECT/home:latest
     resources:
       limits:
         memory: 4Gi # 384Mi
-        cpu: 2      # 250m
+        cpu: 2000m  # 250m
         ephemeral-storage: 5Gi
       requests:
         memory: 4Gi  # 256Mi
-        cpu: 2       # 200m
+        cpu: 2000m   # 200m
         ephemeral-storage: 5Gi
     volumeMounts:
       - name: home

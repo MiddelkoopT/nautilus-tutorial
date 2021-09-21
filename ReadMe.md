@@ -11,13 +11,13 @@ kubectl get pods
 
 ## Repository Setup
 
-This is a one-time setup process for connecting a Nautilus gitlab project to the Nautilus build cluster.
+This is a one-time setup process for connecting a Nautilus (gitlab)[https://gitlab.nrp-nautilus.io/] project to the Nautilus build cluster.
 
-Create a GitLab "deploy token" that has the `read_registry` (and optionally `read_repository`) flag set.  Note: use the "Username" not the "Name" field for `CI_DEPLOY_USER`.  The "Name" field is not used by the CI/CD process and clould be set to something like "Nautilus build deploy token".  To create the token navigate to Project -> Settings -> Repository -> Deploy tokens -> Create deploy token.  It is **NOT** a Project Access Token under Settings -> Access Tokens.
+Create a GitLab "deploy token" that has the `read_registry` (and optionally `read_repository`) flag set.  Note: use the "Username" not the "Name" field for `CI_DEPLOY_USER` in the token file below.  The "Name" field is not used by the CI/CD process and could be set to something like "Nautilus build deploy token".  To create the token navigate to Project -> Settings -> Repository -> Deploy tokens -> Create deploy token.  It is **NOT** a Project Access Token under Settings -> Access Tokens.
 
 ```bash
 cat > token <<EOF
-CI_REGISTRY=gitlab-registry.nautilus.optiputer.net
+CI_REGISTRY=gitlab-registry.nrp-nautilus.io
 CI_DEPLOY_USER=<<Deploy Token username>>
 CI_DEPLOY_PASSWORD=<<Token>>
 EOF
@@ -70,11 +70,13 @@ kubectl delete -f simple/data.yaml
 ```
 
 ## Shell
+
 ```bash
 ./ssh.sh
 ```
 
 ## Deploy App
+
 Load sample API deployment and expose the port as a service. Note the environment substitution with envsubst.
 ```bash
 . ./environment.sh
@@ -148,19 +150,19 @@ The `access-east` file:
 ```bash
 ACCESS_KEY_ID=
 SECRET_ACCESS_KEY=
-ENDPOINT_URL=https://s3-east.nautilus.optiputer.net
+ENDPOINT_URL=https://s3-east.nrp-nautilus.io
 ```
 
 The `access-west` file:
 ```bash
 ACCESS_KEY_ID=
 SECRET_ACCESS_KEY=
-ENDPOINT_URL=https://s3.nautilus.optiputer.net
+ENDPOINT_URL=https://s3-west.nrp-nautilus.io
 ```
 
 Sample FUSE mount (east)
 ```bash
-s3fs test1 /data -o passwd_file=.s3fs -o url=https://s3-east.nautilus.optiputer.net -o use_path_request_style
+s3fs test1 /data -o passwd_file=.s3fs -o url=https://s3-east.nrp-nautilus.io -o use_path_request_style
 ```
 
 Password file `.s3fs`
