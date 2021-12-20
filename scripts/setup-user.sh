@@ -19,14 +19,12 @@ fi
 if [ -x /usr/bin/apt-get -a -x /usr/bin/sudo ] ; then
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -y git python3 ca-certificates procps wget curl unzip jq
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -y bash-completion rsync
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends emacs-nox aspell-en
 fi
 
 # install packages on rpm based systems.
 if [ -x /usr/bin/yum ] ; then
     sudo yum install -y git python3 ca-certificates procps wget curl unzip jq
     sudo yum install -y bash-completion rsync
-    sudo yum install -y emacs-nox hunspell-en
 fi
 
 # directories
@@ -41,16 +39,14 @@ if ! grep -q "^# local configuration" ~/.bashrc ; then
 fi
 
 # local configuration
-echo -e "(setq make-backup-files nil)\n(menu-bar-mode -1)" > ~/.emacs
-echo "PERL_HOMEDIR=0" > ~/.perl-homedir
+install -dpv ~/.local/share/R
 echo "R_LIBS_USER=~/.local/share/R" > ~/.Renviron
+echo "PERL_HOMEDIR=0" > ~/.perl-homedir
 
 # git
 git config --global color.ui auto
 git config --global push.default simple
 git config --global pull.ff only
-if [ -x /usr/bin/emacs ] ; then
-    git config --global core.editor 'emacs -nw' # overidden by GIT_EDITOR
-fi
+git config --global init.defaultBranch main
 
 echo "=== setup-user.sh done $(hostname) $(date)"
