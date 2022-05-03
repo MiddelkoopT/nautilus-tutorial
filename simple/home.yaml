@@ -7,19 +7,19 @@ metadata:
 spec:
   containers:
   - name: home
-    image: debian:10
+    image: debian:11
     resources:
-      limits:
-        memory: 384Mi
-        cpu: 250m
       requests:
-        cpu: 200m
-        memory: 256Mi
+        memory: 1Gi
+        cpu: 1
+      limits:
+        memory: 1Gi
+        cpu: 1
     volumeMounts:
       - mountPath: /home
         name: home
-    command: [ sleep ]
-    args: [ 2h ]
+    command: [ tail ]
+    args: [ -F, /var/log/container.log  ]
   volumes:
     - name: home
       persistentVolumeClaim:
