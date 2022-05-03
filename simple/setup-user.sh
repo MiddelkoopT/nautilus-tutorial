@@ -18,13 +18,13 @@ fi
 # install packages on deb based systems
 if [ -x /usr/bin/apt-get -a -x /usr/bin/sudo ] ; then
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -y git python3 ca-certificates procps wget curl unzip jq
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y bash-completion rsync
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y bash-completion vim
 fi
 
 # install packages on rpm based systems.
 if [ -x /usr/bin/yum ] ; then
     sudo yum install -y git python3 ca-certificates procps wget curl unzip jq
-    sudo yum install -y bash-completion rsync
+    sudo yum install -y bash-completion vim
 fi
 
 # directories
@@ -34,7 +34,7 @@ install -dv -m 700 ~/tmp
 # bash local configuration
 if ! grep -q "^# local configuration" ~/.bashrc ; then
   echo -e "\n# local configuration" >> ~/.bashrc
-  echo "shopt -s globstar dotglob" >> ~/.bashrc
+  echo "shopt -s globstar dotglob extglob" >> ~/.bashrc
   echo "export LESS=-icMR" >> ~/.bashrc
 fi
 

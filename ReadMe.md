@@ -1,11 +1,10 @@
 # Nautilus Tutorial
 *Copyright 2021 Internet2. Code licensed Apache License v2.0. Documentation licensed CC BY-SA 4.0*
 
-Tutorial for Nautilus (https://nautilus.optiputer.net/).  Follow the directions on the Nautilus website to get access Nautilus.
+Tutorial for Nautilus (https://portal.nrp-nautilus.io/).  Follow the directions on the Nautilus website to get access Nautilus.
 
-Save the Nautilus credentials `config` file to this directory and source the `environment.sh` file to use `kubectl`.
+Save the Nautilus credentials `config` file to `~/.kube/config` to use `kubectl`.
 ```bash
-. ./environment.sh
 kubectl get pods
 ```
 
@@ -25,30 +24,22 @@ EOF
 
 Save the GitLab `token` as a K8 secret.
 ```bash
-. ./environment.sh
 . ./token
 kubectl create secret docker-registry home-deploy-token --docker-server="$CI_REGISTRY" --docker-username="$CI_DEPLOY_USER" --docker-password="$CI_DEPLOY_PASSWORD"
 ```
 
-All use of `kubectl` must have the envrionment set and the `$PWD` must be the project root.
-```bash
-. ./environment.sh
-```
-
 ## Simple Home Pod
 
-To create a simple home pod without using a CI/CD pipleline. The home pod will terminate after 2 hours and is named the same as the home pod created by `./home.sh`.
+To create a simple home pod without using a CI/CD pipleline. The home pod  is named the same as the home pod created by `./create-home.sh`.
 
 Allocate storage and startup the pod:
 ```bash
-. ./environment.sh
 kubectl apply -f simple/data.yaml
 kubectl apply -f simple/home.yaml
 ```
 
 Alternatively, you an also apply the entire folder
 ```
-. ./environment.sh
 kubectl apply -f simple
 ```
 
@@ -59,12 +50,11 @@ kubectl exec -it home -- /bin/bash
 
 To get a user, perform some script magic.  After this `./ssh.sh` will work. 
 ```bash
-./scripts/setup-debian.sh
+./simple/setup.sh
 ```
 
 To destroy the pod and delete the storage
 ```bash
-. ./environment.sh
 kubectl delete -f simple/home.yaml
 kubectl delete -f simple/data.yaml
 ```
@@ -79,7 +69,6 @@ kubectl delete -f simple/data.yaml
 
 Load sample API deployment and expose the port as a service. Note the environment substitution with envsubst (`app/start.sh`)
 ```bash
-. ./environment.sh
 cat app/app-deployment.yaml | PROJECT=$(basename $PWD) envsubst | kubectl apply -f -
 kubectl apply -f app/app-service.yaml
 cat app/app-ingress.yaml | PROJECT=$(basename $PWD) envsubst | kubectl apply -f -
@@ -133,12 +122,12 @@ kubectl delete secret home-deploy-token
 
 To build your own home container you must get the CI/CD pipeline working using the `app` pod.
 ```bash
-./home.sh
+./create-home.sh
 ```
 
 To delete the pod and **delete** the data run the following.  This will **delete** your data and the pod.
 ```bash
-./delete.sh
+./delete-home.sh
 ./list.sh
 ```
 

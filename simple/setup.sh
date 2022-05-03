@@ -1,10 +1,14 @@
 #!/bin/bash
 
-. ./environment.sh
+echo "=== setup simple/home.yaml"
+
+kubectl apply -f simple/data.yaml
+kubectl apply -f simple/home.yaml
 
 # Wait for pod to be in the 'Running' state
 while [ $(kubectl get pod/home  -o template --template={{.status.phase}}) != "Running" ] ; do
-    echo "Waiting for pod home: $(date)"
+    kubectl describe pod home
+    echo "Waiting for pod/home: $(date)"
     sleep 5
 done
 
@@ -17,8 +21,8 @@ usermod -a -G sudo $USER
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y apt-utils sudo
-apt-get dist-upgrade -y
+apt-get install --yes apt-utils dialog sudo
+apt-get dist-upgrade --yes
 
 if ! grep -q "^# local configuration" /etc/sudoers ; then
     echo -e '\n# local configuration' >> /etc/sudoers
@@ -26,4 +30,4 @@ if ! grep -q "^# local configuration" /etc/sudoers ; then
 fi
 EOF
 
-$SSH_USER < scripts/setup-user.sh
+$SSH_USER < ./simple/setup-user.sh
