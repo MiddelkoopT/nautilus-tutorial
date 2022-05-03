@@ -7,10 +7,13 @@ RUN apt-get update && apt-get dist-upgrade --yes && apt-get clean
 
 ## Development
 RUN apt-get install --yes git python3 ca-certificates build-essential procps curl unzip jq && apt-get clean
+RUN apt-get install --yes python3-pip gfortran automake && apt-get clean
 
 ## Home envrionment
-RUN apt-get install --yes sudo dialog bash-completion less iproute2 iputils-ping host whois && apt-get clean
-RUN apt-get install --yes python3-pip gfortran automake && apt-get clean
+RUN apt-get install --yes sudo dialog && apt-get clean
+RUN apt-get install --yes bash-completion vim less iproute2 iputils-ping host whois && apt-get clean
+
+## Nautilus
 RUN apt-get install --yes s3fs && apt-get clean
 
 ## Create User
