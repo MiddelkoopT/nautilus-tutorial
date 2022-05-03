@@ -23,21 +23,21 @@ spec:
   - name: home
     image: gitlab-registry.nrp-nautilus.io/$USER/$PROJECT/home:latest
     resources:
-      limits:
-        memory: 4Gi # 384Mi
-        cpu: 2000m  # 250m
-        ephemeral-storage: 5Gi
       requests:
         memory: 4Gi  # 256Mi
         cpu: 2000m   # 200m
+        ephemeral-storage: 5Gi
+      limits:
+        memory: 4Gi # 384Mi
+        cpu: 2000m  # 250m
         ephemeral-storage: 5Gi
     volumeMounts:
       - name: home
         mountPath: /home
       - name: scratch
         mountPath: /scratch
-    command: [ sleep ]
-    args: [ 2h ]
+    command: [ tail ]
+    args: [ -F, /var/log/container.log  ]
   volumes:
     - name: home
       persistentVolumeClaim:
