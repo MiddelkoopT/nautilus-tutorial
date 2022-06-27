@@ -8,3 +8,6 @@ while [ $(kubectl get pod/home  -o template --template={{.status.phase}}) != "Ru
     echo "Waiting for pod/home: $(date)"
     sleep 5
 done
+
+echo "Setup PV"
+./ssh.sh 'sudo chown -v $USER: .'
