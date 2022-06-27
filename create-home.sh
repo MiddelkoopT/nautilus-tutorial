@@ -10,4 +10,4 @@ while [ $(kubectl get pod/home  -o template --template={{.status.phase}}) != "Ru
 done
 
 echo "Setup PV"
-./ssh.sh 'sudo chown -v $USER: .'
+./ssh.sh 'sudo chown -v $USER: /home/$USER /scratch'
