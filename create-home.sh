@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # `envsubst` replaces envrionment variables with their values.
-cat home/home.yaml | PROJECT=$(basename $PWD) envsubst | kubectl apply -f -
+cat home/home-template.yaml | PROJECT=$(basename $PWD) envsubst | kubectl apply -f -
 
 while [ $(kubectl get pod/home  -o template --template={{.status.phase}}) != "Running" ] ; do
     kubectl describe pod home
