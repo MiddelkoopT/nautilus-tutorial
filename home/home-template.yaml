@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: home-data
   labels:
-    home: home-data
+    app: home-data
 spec:
   storageClassName: rook-ceph-block
   accessModes:
@@ -17,7 +17,7 @@ kind: Pod
 metadata:
   name: home
   labels:
-    home: home-pod
+    app: home-pod
 spec:
   containers:
   - name: home

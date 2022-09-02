@@ -43,7 +43,7 @@ Alternatively, you an also apply the entire folder
 kubectl apply -f simple
 ```
 
-You can now directy attach to the pod as root via:
+You can now directly attach to the pod as root via:
 ```bash
 kubectl exec -it home -- /bin/bash
 ```
