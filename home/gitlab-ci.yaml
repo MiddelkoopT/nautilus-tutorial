@@ -5,6 +5,6 @@ build-nautilus-home:
   variables:
     PROJECT_CONTEXT: "home"
   script:
-    - echo "=== $CI_COMMIT_SHA $CI_REGISTRY_IMAGE/$PROJECT_CONTEXT:latest $(hostname) $(date)"
+    - echo "=== $CI_COMMIT_SHA $CI_REGISTRY_IMAGE/$PROJECT_CONTEXT:latest $(hostname) $(date) $CI_REGISTRY_USER"
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --cache=true --context $CI_PROJECT_DIR/$PROJECT_CONTEXT --dockerfile $CI_PROJECT_DIR/$PROJECT_CONTEXT/Dockerfile --build-arg USER=$GITLAB_USER_LOGIN --destination $CI_REGISTRY_IMAGE/$PROJECT_CONTEXT:${CI_COMMIT_SHA:0:8} --destination $CI_REGISTRY_IMAGE/$PROJECT_CONTEXT:latest
