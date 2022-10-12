@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # `envsubst` replaces envrionment variables with their values.
-cat container/home-template.yaml | PROJECT=$(basename $PWD) envsubst | kubectl apply -f -
+export PROJECT=nautilus-tutorial
+cat container/home-template.yaml | envsubst | kubectl apply -f -
 
-while [ $(kubectl get pod/home  -o template --template={{.status.phase}}) != "Running" ] ; do
+while [ $(kubectl get pod/home -o template --template={{.status.phase}}) != "Running" ] ; do
     kubectl describe pod home
     echo "Waiting for pod/home: $(date)"
     sleep 5

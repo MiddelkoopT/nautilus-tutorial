@@ -21,7 +21,7 @@ metadata:
 spec:
   containers:
   - name: home
-    image: gitlab-registry.nrp-nautilus.io/$USER/$PROJECT/home:latest
+    image: gitlab-registry.nrp-nautilus.io/$USER/$PROJECT/home/container:latest
     resources:
       requests:
         memory: 4Gi  # 256Mi

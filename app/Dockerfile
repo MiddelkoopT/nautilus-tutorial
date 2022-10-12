@@ -3,7 +3,7 @@
 #LABEL maintainer="tmiddelkoop@internet2.edu"
 
 # Full Debian image
-FROM debian:10
+FROM debian:11
 LABEL maintainer="tmiddelkoop@internet2.edu"
 
 

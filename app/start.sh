@@ -1,8 +1,9 @@
 #!/bin/bash
 
-cat app/app-deployment.yaml | PROJECT=$(basename $PWD) envsubst | kubectl apply -f -
+export PROJECT=nautilus-tutorial
+cat app/app-deployment.yaml | envsubst | kubectl apply -f -
 kubectl apply -f app/app-service.yaml
-cat app/app-ingress.yaml | PROJECT=$(basename $PWD) envsubst | kubectl apply -f -
+cat app/app-ingress.yaml | envsubst | kubectl apply -f -
 kubectl get pod
 kubectl get service
 kubectl get ingress
