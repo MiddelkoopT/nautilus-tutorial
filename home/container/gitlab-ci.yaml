@@ -3,7 +3,7 @@ image: gcr.io/kaniko-project/executor:debug
 build-nautilus-home:
   stage: build
   variables:
-    PROJECT_CONTEXT: "home"
+    PROJECT_CONTEXT: "home/container"
   script:
     - echo "=== $CI_COMMIT_SHA $CI_REGISTRY_IMAGE/$PROJECT_CONTEXT:latest $(hostname) $(date)"
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json

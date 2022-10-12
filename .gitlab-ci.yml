@@ -3,5 +3,5 @@
 # Place CI/CD code in directories and use `only: branch` to build only pushed branch
 
 include:
-  - '/home/gitlab-ci.yaml'
+  - '/home/container/gitlab-ci.yaml'
   - '/app/gitlab-ci.yaml'
