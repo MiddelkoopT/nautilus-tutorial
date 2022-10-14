@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: perfsonar
+  labels:
+    app: perfsonar
+spec:
+  containers:
+  - name: perfsonar
+    image: gitlab-registry.nrp-nautilus.io/$USER/$PROJECT/perfsonar:latest
+    resources:
+      requests:
+        memory: 4Gi # 256Mi
+        cpu: 2000m  # 200m
+      limits:
+        memory: 4Gi # 384Mi
+        cpu: 2000m  # 250m
+  imagePullSecrets:
+    - name: home-deploy-token

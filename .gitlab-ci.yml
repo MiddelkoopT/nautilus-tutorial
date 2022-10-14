@@ -5,3 +5,4 @@
 include:
   - '/home/container/gitlab-ci.yaml'
   - '/app/gitlab-ci.yaml'
+  - '/perfsonar/gitlab-ci.yaml'
