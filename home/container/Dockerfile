@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install --yes apt-utils && \
 RUN install --mode=666 /dev/null /var/log/container.log
 
 ## Development
-RUN apt-get install --yes git python3 ca-certificates build-essential procps curl unzip jq && \
+RUN apt-get install --yes git python3 ca-certificates build-essential procps curl wget unzip jq && \
     apt-get install --yes python3-pip gfortran automake && \
     apt-get clean
 
