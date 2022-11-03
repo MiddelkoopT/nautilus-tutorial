@@ -2,7 +2,7 @@
 
 Build and run Nautilus on Perfsonar.
 
-  * Note: using patched docker build to fix for Docker version bug (https://github.com/MiddelkoopT/perfsonar-testpoint-docker/tree/tm-runner-failing-fix-nodaemon).
+  * Note: using patched docker build to fix for Docker version bug (https://github.com/MiddelkoopT/perfsonar-testpoint-docker/tree/tm-dev).
 
 
 Create perfsonar pod
@@ -20,6 +20,7 @@ Basic Tests
 pscheduler ping localhost
 pscheduler task idle --duration PT2S
 pscheduler task rtt --dest 127.0.0.1
+
 pscheduler troubleshoot
 
 pscheduler task trace --dest ps.ncsa.xsede.org
