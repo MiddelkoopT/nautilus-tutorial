@@ -5,7 +5,7 @@ metadata:
   labels:
     app: home-data
 spec:
-  storageClassName: rook-ceph-block-central
+  storageClassName: rook-ceph-block$STORAGE_REGION
   accessModes:
   - ReadWriteOnce
   resources:
@@ -46,6 +46,8 @@ spec:
       emptyDir: {}
   imagePullSecrets:
     - name: home-deploy-token
+  nodeSelector:
+    nautilus.io/ipv6: "true"
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -54,4 +56,4 @@ spec:
               - key: topology.kubernetes.io/region
                 operator: In
                 values:
-                  - us-central
+                  - $REGION
