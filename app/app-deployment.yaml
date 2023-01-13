@@ -26,3 +26,5 @@ spec:
             memory: 256Mi
       imagePullSecrets:
         - name: home-deploy-token
+      nodeSelector:
+        nautilus.io/ipv6: "true"

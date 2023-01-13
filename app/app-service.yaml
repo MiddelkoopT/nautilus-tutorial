@@ -10,3 +10,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   type: ClusterIP
+  ipFamilyPolicy: RequireDualStack
+  ipFamilies: 
+    - "IPv4"
+    - "IPv6"

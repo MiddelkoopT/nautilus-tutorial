@@ -2,7 +2,7 @@
 
 export PROJECT=nautilus-tutorial
 cat app-deployment.yaml | envsubst | kubectl apply -f -
-kubectl apply -f app/app-service.yaml
+kubectl apply -f app-service.yaml
 cat app-ingress.yaml | envsubst | kubectl apply -f -
 
 kubectl get pod

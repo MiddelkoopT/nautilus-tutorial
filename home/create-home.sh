@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # `envsubst` replaces envrionment variables with their values.
-: ${REGION:=us-central}
-: ${STORAGE_REGION:=-central} # '-central', '-east', or '' for west.
+: ${REGION:=us-east}
+: ${STORAGE_REGION:=-east} # '-central', '-east', or '' for west.
 PROJECT=nautilus-tutorial
 export PROJECT REGION
 echo "=== create-home.sh $PROJECT $REGION"
