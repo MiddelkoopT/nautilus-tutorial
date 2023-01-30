@@ -49,3 +49,10 @@ To delete the pod and **delete** the data run the following.  This will **delete
 ./delete-home.sh
 ./list.sh
 ```
+
+## Region Resources
+```bash
+kubectl get nodes -l topology.kubernetes.io/region=us-central
+kubectl get nodes -l nautilus.io/ipv6=true
+kubectl -o json get nodes -l nautilus.io/ipv6=true,topology.kubernetes.io/region=us-central
+```
