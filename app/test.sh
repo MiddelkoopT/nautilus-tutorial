@@ -4,6 +4,7 @@ echo "+++ port forward"
 kubectl port-forward service/app-service 8080:8080 &
 sleep 2
 curl http://localhost:8080
+echo -e "\n---"
 kill %1
 wait
 echo ""
