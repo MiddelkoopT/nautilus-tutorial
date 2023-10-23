@@ -1,0 +1,49 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: debian-vm
+spec:
+  running: true
+  template:
+    spec:
+      architecture: amd64
+      domain:
+        cpu:
+          cores: 4
+        devices:
+          autoattachGraphicsDevice: true
+          autoattachSerialConsole: true
+          disks:
+          - disk:
+              bus: virtio
+            name: virtiocontainerdisk
+            bootOrder: 1
+          - disk:
+              bus: virtio
+            name: cloudinit
+        machine:
+          type: q35
+        resources:
+          limits:
+            memory: 8Gi
+          requests:
+            memory: 8Gi
+      volumes:
+      - containerDisk:
+          image: quay.io/containerdisks/ubuntu:22.04
+        name: virtiocontainerdisk
+      - cloudInitConfigDrive:
+          userData: |-
+            #cloud-config
+            ## The default username is: ubuntu
+            # ssh_authorized_keys:
+            #   - ssh-rsa ...
+        name: cloudinit
+      accessCredentials:
+      - sshPublicKey:
+          # kubectl create secret generic ssh-key --from-file=key1=$HOME/.ssh/id_orange.pub
+          source:
+            secret:
+              secretName: ssh-key
+          propagationMethod:
+            configDrive: {}
